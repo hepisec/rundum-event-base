@@ -8,6 +8,7 @@
             "email": "pilz@rundum.digital"
         }
     ],
+    "license": "MIT",
     "require": {
         "doctrine/orm": "^2.6",
         "psr/log": "^1.1",
