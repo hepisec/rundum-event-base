@@ -1,0 +1,27 @@
+{
+    "name": "rundum/event-base",
+    "description": "Basic events for symfony projects",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Hendrik Pilz",
+            "email": "pilz@rundum.digital"
+        }
+    ],
+    "require": {
+        "doctrine/orm": "^2.6",
+        "psr/log": "^1.1",
+        "symfony/event-dispatcher": "^4.3"
+    },
+    "config": {
+        "preferred-install": {
+            "*": "dist"
+        },
+        "sort-packages": true
+    },
+    "autoload": {
+        "psr-4": {
+            "Rundum\\": "src/"
+        }
+    }    
+}
