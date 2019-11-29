@@ -72,10 +72,9 @@ class EntityEventSubscriber implements EventSubscriberInterface {
                 $em->persist($entity);
             } else {
                 $this->logger->info('Updating entity of type ' . get_class($entity));
-                $entity = $em->merge($entity);
             }
 
-            $em->flush($entity);
+            $em->flush();
             $this->dispatcher->dispatch(EntityChangeCompletedEvent::from($event), EntityChangeCompletedEvent::NAME);
         } catch (\Exception $ex) {
             $this->logger->warning('Operation failed: ' . $ex->getMessage());
@@ -101,7 +100,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
         try {
             $this->logger->info('Removing entity of type ' . get_class($entity));
             $em->remove($entity);
-            $em->flush($entity);
+            $em->flush();
             $this->dispatcher->dispatch(EntityRemovalCompletedEvent::from($event), EntityRemovalCompletedEvent::NAME);
         } catch (\Exception $ex) {
             $this->logger->warning('Operation failed: ' . $ex->getMessage());

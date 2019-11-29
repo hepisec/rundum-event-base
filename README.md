@@ -36,17 +36,17 @@ class ExampleService {
     }
     
     function saveEntity($entity) {
-        // -> EntityManager->persist
+        // -> INSERT ...
         $this->dispatcher->dispatch(new EntityChangeIntendedEvent($entity, true), EntityChangeIntendedEvent::NAME);
     }
     
     function updateEntity($entity) {
-        // -> EntityManager->merge
+        // -> UPDATE ...
         $this->dispatcher->dispatch(new EntityChangeIntendedEvent($entity), EntityChangeIntendedEvent::NAME);
     }
     
     function deleteEntity($entity) {
-        // -> EntityManager->remove
+        // -> DELETE FROM ...
         $this->dispatcher->dispatch(new EntityRemovalIntendedEvent($entity), EntityRemovalIntendedEvent::NAME);
     }
 }
