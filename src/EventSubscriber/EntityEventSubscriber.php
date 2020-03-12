@@ -63,15 +63,18 @@ class EntityEventSubscriber implements EventSubscriberInterface {
      */
     public function onChange(EntityChangeIntendedEvent $event): void {
         $entity = $event->getEntity();
+        $entities = is_array($entity) ? $entity : [$entity];
 
         $em = $this->getEntityManager();
 
         try {
-            if ($event->isNew()) {
-                $this->logger->info('Persisting new entity of type ' . get_class($entity));
-                $em->persist($entity);
-            } else {
-                $this->logger->info('Updating entity of type ' . get_class($entity));
+            foreach ($entities as $entity) {
+                if ($event->isNew()) {
+                    $this->logger->info('Persisting new entity of type ' . get_class($entity));
+                    $em->persist($entity);
+                } else {
+                    $this->logger->info('Updating entity of type ' . get_class($entity));
+                }
             }
 
             $em->flush();
@@ -94,12 +97,16 @@ class EntityEventSubscriber implements EventSubscriberInterface {
      */
     public function onRemove(EntityRemovalIntendedEvent $event): void {
         $entity = $event->getEntity();
+        $entities = is_array($entity) ? $entity : [$entity];
 
         $em = $this->getEntityManager();
 
         try {
-            $this->logger->info('Removing entity of type ' . get_class($entity));
-            $em->remove($entity);
+            foreach ($entities as $entity) {
+                $this->logger->info('Removing entity of type ' . get_class($entity));
+                $em->remove($entity);
+            }
+            
             $em->flush();
             $this->dispatcher->dispatch(EntityRemovalCompletedEvent::from($event), EntityRemovalCompletedEvent::NAME);
         } catch (\Exception $ex) {
