@@ -9,7 +9,7 @@ use Rundum\Event\EntityRemovalCompletedEvent;
 use Rundum\Event\EntityRemovalFailedEvent;
 use Rundum\Event\EntityRemovalIntendedEvent;
 use Rundum\Util\EventPriority;
-use Doctrine\Common\Persistence\ManagerRegistry;
+use Doctrine\Persistence\ManagerRegistry;
 use Doctrine\ORM\EntityManager;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
@@ -106,7 +106,7 @@ class EntityEventSubscriber implements EventSubscriberInterface {
                 $this->logger->info('Removing entity of type ' . get_class($entity));
                 $em->remove($entity);
             }
-            
+
             $em->flush();
             $this->dispatcher->dispatch(EntityRemovalCompletedEvent::from($event), EntityRemovalCompletedEvent::NAME);
         } catch (\Exception $ex) {

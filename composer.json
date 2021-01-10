@@ -10,7 +10,7 @@
     ],
     "license": "MIT",
     "require": {
-        "doctrine/orm": "^2.6",
+        "doctrine/orm": "^2.7",
         "psr/log": "^1.1",
         "symfony/event-dispatcher": "^4.3 || ^5.0"
     },
